@@ -40,3 +40,12 @@ body.picking #pickBtn { background: var(--acc); color: #08130c; }
 progress { width: 260px; height: 14px; }
 .status { color: var(--dim); }
 .status.err { color: #ff7070; }
+
+/* phones (375 px): stack sliders, previews and the progress bar so nothing overflows */
+@media (max-width: 600px) {
+  .controls { grid-template-columns: 1fr; }
+  .slider input[type=range] { width: 100%; }
+  .views { flex-direction: column; }
+  progress { width: 100%; flex: 1 1 100%; }
+  header { flex-wrap: wrap; }
+}
