@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GreenKey: green screen to transparent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-state="empty">
+<header>
+  <h1>GreenKey</h1>
+  <span class="sub">green-screen media to transparent WebM / PNG, 100 % local</span>
+  <span id="fileName" class="file"></span>
+</header>
+
+<main>
+  <section id="drop" class="drop">
+    <p><b>Drop a file here</b> or click to pick one</p>
+    <p class="hint">Video (mp4, webm, mov), GIF, PNG, JPG, WebP</p>
+    <input id="fileInput" type="file" accept="video/mp4,video/webm,video/quicktime,.mov,.mp4,.webm,image/gif,image/png,image/jpeg,image/webp">
+  </section>
+
+  <section id="work" class="work" hidden>
+    <div class="views">
+      <figure id="origFig" class="view" hidden>
+        <canvas id="origCanvas"></canvas>
+        <figcaption>Original (click to pick key colour)</figcaption>
+      </figure>
+      <figure class="view checker">
+        <canvas id="viewChecker"></canvas>
+        <figcaption>Result on checkerboard</figcaption>
+      </figure>
+      <figure class="view dark">
+        <canvas id="viewDark"></canvas>
+        <figcaption>Result on dark</figcaption>
+      </figure>
+    </div>
+
+    <div id="transport" class="transport">
+      <button id="playBtn" type="button">Play</button>
+      <input id="scrub" type="range" min="0" max="1000" value="0" step="1">
+      <span id="timeLabel" class="mono">0.00 / 0.00 s</span>
+    </div>
+
+    <div class="controls">
+      <label class="slider">Key strength <output id="strengthOut"></output>
+        <input id="strength" type="range" min="50" max="150" value="105" step="1"></label>
+      <label class="slider">Spill removal <output id="spillOut"></output>
+        <input id="spill" type="range" min="0" max="100" value="100" step="1"></label>
+      <label class="slider">Edge softness <output id="softOut"></output>
+        <input id="soft" type="range" min="0" max="100" value="70" step="1"></label>
+
+      <div class="keyrow">
+        <span>Key colour</span>
+        <span id="keySwatch" class="swatch"></span>
+        <span id="keyHex" class="mono"></span>
+        <button id="autoKeyBtn" type="button" title="Median of the frame border">Auto</button>
+        <button id="pickBtn" type="button" title="Click a pixel in the original">Eyedropper</button>
+        <label class="check"><input id="showOrig" type="checkbox"> Show original</label>
+        <button id="resetBtn" type="button">Reset sliders</button>
+      </div>
+
+      <div class="exportrow">
+        <button id="exportBtn" type="button" class="primary">Export</button>
+        <progress id="progress" max="1" value="0"></progress>
+        <span id="status" class="status"></span>
+        <button id="newBtn" type="button">Open another file</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="vendor/mp4box.all.min.js"></script>
+<script src="vendor/webm-muxer.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
